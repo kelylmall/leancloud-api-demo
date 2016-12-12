@@ -33,8 +33,15 @@
 		<bcprov.version>1.47</bcprov.version>
 		<javax.persistence.version>1.0</javax.persistence.version>
 	</properties>
-
+ 
 	<dependencies>
+		
+		  <dependency>
+	      <groupId>cn.leancloud</groupId>
+	      <artifactId>java-sdk</artifactId>
+	      <version>0.1.6</version>
+	    </dependency>
+	
 		<!-- spring boot -->
 		<dependency>
             <groupId>org.springframework.boot</groupId>

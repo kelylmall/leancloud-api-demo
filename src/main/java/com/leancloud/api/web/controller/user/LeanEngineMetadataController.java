@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LeanEngineMetadataController {
 
-	@RequestMapping(value = "/1.1/functions/_ops/metadatas", produces = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = {"/1/functions/_ops/metadatas", "/1.1/functions/_ops/metadatas"}, produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public String check(@RequestHeader HttpHeaders headers,
 			@RequestParam(value = "key", required = false) String key,

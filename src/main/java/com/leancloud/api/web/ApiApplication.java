@@ -21,13 +21,14 @@ import com.leancloud.api.web.configuration.LeanCloudAppConfigurer;
 @EnableConfigurationProperties({ LeanCloudAppConfigurer.class })
 public class ApiApplication extends SpringBootServletInitializer {
 
-	private static String appId="HM6nQFvp9GMEoY4O143lfKvq";
-	private static String appKey="PqBoqihDG9gH2eCxI0wazAjf";
-	private static String masterKey="UBAMc8xE3zvnxNFGrBX8wqu4";
-	
 	public static void main(String[] args) throws Exception {
-		AVOSCloud.initialize(appId, appKey,masterKey);
-		LeanEngine.initialize(appId, appKey, masterKey);
+
+		String appId = System.getenv("LEANCLOUD_APP_ID");
+		String appKey = System.getenv("LEANCLOUD_APP_KEY");
+		String appMasterKey = System.getenv("LEANCLOUD_APP_MASTER_KEY");
+
+		AVOSCloud.initialize(appId, appKey, appMasterKey);
+		LeanEngine.initialize(appId, appKey, appMasterKey);
 		SpringApplication.run(ApiApplication.class, args);
 	}
 
@@ -37,5 +38,4 @@ public class ApiApplication extends SpringBootServletInitializer {
 		return application.sources(getClass());
 	}
 
-	
 }

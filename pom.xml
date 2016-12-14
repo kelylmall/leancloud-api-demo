@@ -170,12 +170,6 @@
                     </configuration>
                 </plugin>
                 
-				<plugin>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-maven-plugin</artifactId>
-				</plugin>
-				
-
                 <!-- enforcer插件, 设定环境与依赖的规则 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

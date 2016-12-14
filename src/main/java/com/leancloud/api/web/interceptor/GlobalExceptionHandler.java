@@ -7,14 +7,20 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.avos.avoscloud.AVException;
+import com.leancloud.api.web.resp.BaseResp;
+import com.leancloud.api.web.resp.ClientStateCode;
+
 @ControllerAdvice(annotations = { RestController.class })
 public class GlobalExceptionHandler {
-	private Logger logger = LoggerFactory.getLogger(getClass());
+	private static Logger logger = LoggerFactory
+			.getLogger(GlobalExceptionHandler.class);
 
-	@ExceptionHandler(value = Exception.class)
+	@ExceptionHandler(value = AVException.class)
 	@ResponseBody
-	public String exceptionHandle(Exception ex) {
-		logger.error("exceptionHandle {}", ex);
-		return "500";
+	public BaseResp exceptionHandle(AVException ex) {
+		logger.error("GlobalExceptionHandler.exceptionHandle:{}", ex);
+		BaseResp baseResp = new BaseResp(ClientStateCode.SYSTEM_ERR);
+		return baseResp;
 	}
 }

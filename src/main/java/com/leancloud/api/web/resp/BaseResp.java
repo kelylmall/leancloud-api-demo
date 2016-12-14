@@ -12,6 +12,11 @@ public class BaseResp implements Serializable {
 
 	}
 
+	public BaseResp(ClientStateCode clientStateCode) {
+		this.retCode = clientStateCode.getCode();
+		this.retMsg = clientStateCode.getMsg();
+	}
+	
 	public String getRetCode() {
 		return retCode;
 	}

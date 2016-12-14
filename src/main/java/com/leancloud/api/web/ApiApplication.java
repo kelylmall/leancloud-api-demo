@@ -26,14 +26,14 @@ public class ApiApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) throws Exception {
 		logger.info("ApiApplication start init ---------------------------------------------------------");
-		String appId = System.getenv("LEANCLOUD_APP_ID");
-		String appKey = System.getenv("LEANCLOUD_APP_KEY");
-		String appMasterKey = System.getenv("LEANCLOUD_APP_MASTER_KEY");
+//		String appId = System.getenv("LEANCLOUD_APP_ID");
+//		String appKey = System.getenv("LEANCLOUD_APP_KEY");
+//		String appMasterKey = System.getenv("LEANCLOUD_APP_MASTER_KEY");
 
 		// 本地测试开启
-		// String appId = "LrOxQaQGfylPVKwKyVbbEO2P-gzGzoHsz";
-		// String appKey = "yq9OoOTM1wbewKIE4kWEwBHJ";
-		// String appMasterKey = "DCiz0tQOEGEhE662XbzjO0I1";
+		 String appId = "LrOxQaQGfylPVKwKyVbbEO2P-gzGzoHsz";
+		 String appKey = "yq9OoOTM1wbewKIE4kWEwBHJ";
+		 String appMasterKey = "DCiz0tQOEGEhE662XbzjO0I1";
 		AVOSCloud.initialize(appId, appKey, appMasterKey);
 		logger.info("ApiApplication start end---------------------------------------------------------");
 		// LeanEngine.initialize(appId, appKey, appMasterKey);

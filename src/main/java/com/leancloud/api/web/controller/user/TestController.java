@@ -1,6 +1,9 @@
 package com.leancloud.api.web.controller.user;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.leancloud.api.web.entity.Todo;
@@ -15,6 +19,8 @@ import com.leancloud.api.web.entity.Todo;
 @RestController
 @RequestMapping(value = "/api")
 public class TestController {
+
+	public static Logger logger = LoggerFactory.getLogger(TestController.class);
 
 	@RequestMapping(value = "/test")
 	@ResponseBody
@@ -25,43 +31,30 @@ public class TestController {
 		return "test";
 	}
 
-	@RequestMapping(value = "/testSaveDb")
+	@RequestMapping(value = "/testSaveDb", produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public AVObject testSaveDb(@RequestHeader HttpHeaders headers,
 			@RequestParam(value = "key", required = false) String key,
-			@RequestBody(required = false) String requestBody) {
+			@RequestBody(required = false) String requestBody)
+			throws AVException {
 		AVObject todo = new AVObject("Todo");
 		todo.put("title", "工程师周会");
 		todo.put("content", "每周工程师会议，周一下午2点");
-		try {
-			todo.save();
-			// 保存成功
-		} catch (AVException e) {
-			// 失败的话，请检查网络环境以及 SDK 配置是否正确
-			e.printStackTrace();
-		}
+		todo.save();
 		return todo;
 	}
 
-	@RequestMapping(value = "/testSaveDb1")
+	@RequestMapping(value = "/testSaveDb1", produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public Todo testSaveDb1(@RequestHeader HttpHeaders headers,
 			@RequestParam(value = "key", required = false) String key,
-			@RequestBody(required = false) String requestBody) {
+			@RequestBody(required = false) String requestBody)
+			throws AVException {
 		Todo todo = new Todo();
 		todo.setContent("222222");
-		try {
-			todo.save();
-			// 保存成功
-		} catch (AVException e) {
-			// 失败的话，请检查网络环境以及 SDK 配置是否正确
-			e.printStackTrace();
-		}
+		logger.debug(JSON.toJSONString(todo));
+		todo.save();
 		return todo;
 	}
-	
-	
-	
-	
-	
+
 }

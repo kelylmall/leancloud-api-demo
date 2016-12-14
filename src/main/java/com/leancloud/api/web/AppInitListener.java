@@ -36,13 +36,13 @@ public class AppInitListener implements ServletContextListener {
 		AVOSCloud.initialize(appId, appKey, appMasterKey);
 		AVOSCloud.setDebugLogEnabled(true);
 		//云引擎初始化
-		LeanEngine.initialize(appId, appKey, appMasterKey);
-		// 在请求签名中使用masterKey以激活云代码的最高权限
-		JavaRequestSignImplementation.instance().setUseMasterKey(true);
-		if (System.getenv("LEANCLOUD_APP_ENV").equals("development")) {
-			// 如果是开发环境，则设置 AVCloud.callFunction 和 AVCloud.rpcFunction 调用本地云函数实现
-			// 如果需要本地开发时调用云端云函数实现，则注释掉下面语句。
-			LeanEngine.setLocalEngineCallEnabled(true);
-		}
+//		LeanEngine.initialize(appId, appKey, appMasterKey);
+//		// 在请求签名中使用masterKey以激活云代码的最高权限
+//		JavaRequestSignImplementation.instance().setUseMasterKey(true);
+//		if (System.getenv("LEANCLOUD_APP_ENV").equals("development")) {
+//			// 如果是开发环境，则设置 AVCloud.callFunction 和 AVCloud.rpcFunction 调用本地云函数实现
+//			// 如果需要本地开发时调用云端云函数实现，则注释掉下面语句。
+//			LeanEngine.setLocalEngineCallEnabled(true);
+//		}
 	}
 }

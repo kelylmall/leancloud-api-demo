@@ -6,17 +6,19 @@
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 
-<!-- 	<parent> -->
-<!-- 		<groupId>org.springframework.boot</groupId> -->
-<!-- 		<artifactId>spring-boot-starter-parent</artifactId> -->
-<!-- 		<version>1.4.2.RELEASE</version> -->
-<!-- 	</parent> -->
+	<!-- <parent> -->
+	<!-- <groupId>org.springframework.boot</groupId> -->
+	<!-- <artifactId>spring-boot-starter-parent</artifactId> -->
+	<!-- <version>1.4.2.RELEASE</version> -->
+	<!-- </parent> -->
 
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jettyVersion>9.3.10.v20160621</jettyVersion>
 		<jdk.version>1.8</jdk.version>
+		<slf4j.version>1.7.21</slf4j.version>
+		<logback.version>1.1.8</logback.version>
 		<commons-lang3.version>3.4</commons-lang3.version>
 	</properties>
 	<distributionManagement>
@@ -47,6 +49,15 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 			<version>1.4.2.RELEASE</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<version>1.4.2.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
+
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -57,13 +68,8 @@
 			<artifactId>spring-boot-starter-batch</artifactId>
 			<version>1.4.2.RELEASE</version>
 		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<version>1.4.2.RELEASE</version>
-			<scope>provided</scope>
-		</dependency>
+
+
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -79,7 +85,7 @@
 			<version>${commons-lang3.version}</version>
 		</dependency>
 
-		
+
 
 
 		<!-- log实现开始 -->
@@ -143,39 +149,39 @@
 			<plugins>
 
 				<plugin>
-					<groupId>org.eclipse.jetty</groupId>
-					<artifactId>jetty-maven-plugin</artifactId>
-					<version>${jettyVersion}</version>
-					<configuration>
-						<webAppSourceDirectory>${project.basedir}/src/main/webapp</webAppSourceDirectory>
-						<scanIntervalSeconds>3</scanIntervalSeconds>
-						<stopKey>foo</stopKey>
-						<stopPort>9999</stopPort>
-						<httpConnector>
-							<port>${env.LEANCLOUD_APP_PORT}</port>
-						</httpConnector>
-					</configuration>
-					<executions>
-						<execution>
-							<id>start-jetty</id>
-							<phase>pre-integration-test</phase>
-							<goals>
-								<goal>run</goal>
-							</goals>
-							<configuration>
-								<scanIntervalSeconds>0</scanIntervalSeconds>
-								<daemon>true</daemon>
-							</configuration>
-						</execution>
-						<execution>
-							<id>stop-jetty</id>
-							<phase>post-integration-test</phase>
-							<goals>
-								<goal>stop</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
+	<groupId>org.eclipse.jetty</groupId>
+	<artifactId>jetty-maven-plugin</artifactId>
+	<version>${jettyVersion}</version>
+	<configuration>
+		<webAppSourceDirectory>${project.basedir}/src/main/webapp</webAppSourceDirectory>
+		<scanIntervalSeconds>3</scanIntervalSeconds>
+		<stopKey>foo</stopKey>
+		<stopPort>9999</stopPort>
+		<httpConnector>
+			<port>${env.LEANCLOUD_APP_PORT}</port>
+		</httpConnector>
+	</configuration>
+	<executions>
+		<execution>
+			<id>start-jetty</id>
+			<phase>pre-integration-test</phase>
+			<goals>
+				<goal>run</goal>
+			</goals>
+			<configuration>
+				<scanIntervalSeconds>0</scanIntervalSeconds>
+				<daemon>true</daemon>
+			</configuration>
+		</execution>
+		<execution>
+			<id>stop-jetty</id>
+			<phase>post-integration-test</phase>
+			<goals>
+				<goal>stop</goal>
+			</goals>
+		</execution>
+	</executions>
+</plugin>
 
 
 				<!-- compiler插件, 设定JDK版本 -->

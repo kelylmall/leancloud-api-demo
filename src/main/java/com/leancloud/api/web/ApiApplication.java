@@ -1,5 +1,7 @@
 package com.leancloud.api.web;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -19,18 +21,21 @@ import com.leancloud.api.web.configuration.LeanCloudAppConfigurer;
 @EnableConfigurationProperties({ LeanCloudAppConfigurer.class })
 public class ApiApplication extends SpringBootServletInitializer {
 
-	public static void main(String[] args) throws Exception {
+	private static Logger logger = LoggerFactory
+			.getLogger(ApiApplication.class);
 
-		 String appId = System.getenv("LEANCLOUD_APP_ID");
-		 String appKey = System.getenv("LEANCLOUD_APP_KEY");
-		 String appMasterKey = System.getenv("LEANCLOUD_APP_MASTER_KEY");
-		 
-		 
-//本地测试开启
-//		String appId = "LrOxQaQGfylPVKwKyVbbEO2P-gzGzoHsz";
-//		String appKey = "yq9OoOTM1wbewKIE4kWEwBHJ";
-//		String appMasterKey = "DCiz0tQOEGEhE662XbzjO0I1";
+	public static void main(String[] args) throws Exception {
+		logger.info("ApiApplication start init ---------------------------------------------------------");
+		String appId = System.getenv("LEANCLOUD_APP_ID");
+		String appKey = System.getenv("LEANCLOUD_APP_KEY");
+		String appMasterKey = System.getenv("LEANCLOUD_APP_MASTER_KEY");
+
+		// 本地测试开启
+		// String appId = "LrOxQaQGfylPVKwKyVbbEO2P-gzGzoHsz";
+		// String appKey = "yq9OoOTM1wbewKIE4kWEwBHJ";
+		// String appMasterKey = "DCiz0tQOEGEhE662XbzjO0I1";
 		AVOSCloud.initialize(appId, appKey, appMasterKey);
+		logger.info("ApiApplication start end---------------------------------------------------------");
 		// LeanEngine.initialize(appId, appKey, appMasterKey);
 		SpringApplication.run(ApiApplication.class, args);
 	}

@@ -29,11 +29,8 @@ public class SpringBootApplication extends SpringBootServletInitializer {
 			.getLogger(SpringBootApplication.class);
 
 	public static void main(String[] args) throws Exception {
-		logger.debug("SpringBootApplication.run-----------------------------------------------------------------------");
-		// AVOSCloud.initialize("LrOxQaQGfylPVKwKyVbbEO2P-gzGzoHsz","yq9OoOTM1wbewKIE4kWEwBHJ",
-		// "DCiz0tQOEGEhE662XbzjO0I1");
-		SpringApplication application = new SpringApplication(
-				SpringBootApplication.class);
+		logger.debug("SpringBootApplication.run---start");
+		SpringApplication application = new SpringApplication(SpringBootApplication.class);
 		application.run();
 	}
 	
@@ -80,7 +77,6 @@ public class SpringBootApplication extends SpringBootServletInitializer {
 		logger.info("SpringBootApplication.run appId:{},appKey:{},appMasterKey:{}", appId, appKey,appMasterKey);
 		// 数据存储初始化
 		AVOSCloud.initialize(appId, appKey, appMasterKey);
-		
 		return super.run(application);
 	}
 

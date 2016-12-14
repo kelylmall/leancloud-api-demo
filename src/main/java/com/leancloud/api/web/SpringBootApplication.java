@@ -18,14 +18,14 @@ import com.leancloud.api.web.configuration.LeanCloudAppConfigurer;
 @ComponentScan(basePackages = "com.leancloud.api.web")
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class })
 @EnableConfigurationProperties({ LeanCloudAppConfigurer.class })
-public class ApiApplication extends SpringBootServletInitializer {
+public class SpringBootApplication extends SpringBootServletInitializer {
 
 	private static Logger logger = LoggerFactory
-			.getLogger(ApiApplication.class);
+			.getLogger(SpringBootApplication.class);
 
 	public static void main(String[] args) throws Exception {
-		logger.debug("ApiApplication.run");
-		SpringApplication.run(ApiApplication.class, args);
+		logger.debug("SpringBootApplication.run");
+		SpringApplication.run(SpringBootApplication.class, args);
 	}
 
 	@Override

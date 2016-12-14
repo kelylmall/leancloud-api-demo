@@ -1,8 +1,10 @@
 package com.leancloud.api.web.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 @ConfigurationProperties(prefix = "leancloudApp", locations = "classpath:config/api-conf.properties")
+@Component
 public class LeanCloudAppConfigurer {
 
 	private String appId;

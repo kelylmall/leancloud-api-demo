@@ -40,6 +40,7 @@ public class AppInitListener implements ServletContextListener {
 		AVOSCloud.setDebugLogEnabled(true);
 		// 云引擎初始化
 		try {
+			System.setProperty("LEANCLOUD_APP_PORT", "3000");
 			LeanEngine.initialize(appId, appKey, appMasterKey);
 			// 在请求签名中使用masterKey以激活云代码的最高权限
 			JavaRequestSignImplementation.instance().setUseMasterKey(true);

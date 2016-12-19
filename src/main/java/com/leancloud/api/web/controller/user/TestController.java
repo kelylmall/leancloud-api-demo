@@ -42,10 +42,10 @@ public class TestController {
 	@RequestMapping(value = "/testJni")
 	@ResponseBody
 	public String testJni(@RequestHeader HttpHeaders headers,
-			@RequestParam(value = "key", required = false) String key,
+			@RequestParam(value = "key", required = false,defaultValue="jni") String key,
 			@RequestBody(required = false) String requestBody) {
-
-		return "test";
+		String testJni = new HelloWorld().testJni(key);
+		return testJni;
 	}
 
 	@RequestMapping(value = "/testSaveDb", produces = { MediaType.APPLICATION_JSON_VALUE })

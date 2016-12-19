@@ -15,6 +15,14 @@ extern "C" {
 JNIEXPORT void JNICALL Java_com_leancloud_api_web_function_jni_HelloWorld_hello
   (JNIEnv *, jobject);
 
+/*
+ * Class:     com_leancloud_api_web_function_jni_HelloWorld
+ * Method:    testJni
+ * Signature: (Ljava/lang/String;)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_leancloud_api_web_function_jni_HelloWorld_testJni
+  (JNIEnv *, jobject, jstring);
+
 #ifdef __cplusplus
 }
 #endif

@@ -1,5 +1,7 @@
 package com.leancloud.api.web;
 
+import java.lang.reflect.Field;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
@@ -20,6 +22,7 @@ import cn.leancloud.LeanEngine;
 import com.avos.avoscloud.internal.impl.JavaRequestSignImplementation;
 import com.leancloud.api.web.configuration.LeanCloudAppConfigurer;
 import com.leancloud.api.web.function.TestFuntion;
+import com.leancloud.api.web.function.jni.HelloWorld;
 
 @SuppressWarnings("deprecation")
 @Configuration
@@ -32,15 +35,59 @@ public class SpringBootApplication extends SpringBootServletInitializer {
 			.getLogger(SpringBootApplication.class);
 
 	public static void main(String[] args) throws Exception {
-		logger.debug("SpringBootApplication.run---start");
+		logger.debug("SpringBootApplication.run---start---");
 		SpringApplication application = new SpringApplication(
 				SpringBootApplication.class);
 		application.run();
 	}
 
+	private static void loadJNILibDynamically() {
+		try {
+			System.setProperty(
+					"java.library.path",
+					System.getProperty("java.library.path")
+							+ ":/Users/kelylmall/documents/workspace4/leancloud-api-demo/src/main/resources");
+			ClassLoader.class.getDeclaredField("sys_paths");
+			Field fieldSysPath = ClassLoader.class
+					.getDeclaredField("sys_paths");
+			fieldSysPath.setAccessible(true);
+			fieldSysPath.set(null, null);
+			System.loadLibrary("hello");
+			HelloWorld helloWorld = new HelloWorld();
+			helloWorld.hello();
+			System.out.println(System.getProperty("java.library.path"));
+		} catch (Exception e) {
+			// do nothing for exception
+		}
+	}
+
 	@Override
 	public void onStartup(ServletContext servletContext)
 			throws ServletException {
+		// jni_lib库目录
+		String contextPath = servletContext.getRealPath("/");
+		String jni_lib_path = contextPath + "/jni_lib";
+
+		System.setProperty("java.library.path",
+				System.getProperty("java.library.path") + ":" + jni_lib_path);
+		logger.info("SpringBootApplication.onStartup jni_lib_path:"
+				+ System.getProperty("java.library.path"));
+		try {
+			ClassLoader.class.getDeclaredField("sys_paths");
+			Field fieldSysPath = ClassLoader.class
+					.getDeclaredField("sys_paths");
+			fieldSysPath.setAccessible(true);
+			fieldSysPath.set(null, null);
+			System.loadLibrary("hello");// 加载
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
 		super.onStartup(servletContext);
 	}
 
@@ -57,13 +104,14 @@ public class SpringBootApplication extends SpringBootServletInitializer {
 
 	@Override
 	protected WebApplicationContext run(SpringApplication application) {
+		logger.info("SpringBootApplication.run start--------------------------------------------");
 		System.setProperty("LEANCLOUD_APP_PORT", "3000");
 		System.setProperty("LEANCLOUD_APP_ID",
 				"LrOxQaQGfylPVKwKyVbbEO2P-gzGzoHsz");
 		System.setProperty("LEANCLOUD_APP_KEY", "yq9OoOTM1wbewKIE4kWEwBHJ");
 		System.setProperty("LEANCLOUD_APP_MASTER_KEY",
 				"DCiz0tQOEGEhE662XbzjO0I1");
-		logger.info("SpringBootApplication.run start--------------------------------------------");
+
 		String appId = System.getProperty("LEANCLOUD_APP_ID");
 		String appKey = System.getProperty("LEANCLOUD_APP_KEY");
 		String appMasterKey = System.getProperty("LEANCLOUD_APP_MASTER_KEY");
@@ -90,7 +138,6 @@ public class SpringBootApplication extends SpringBootServletInitializer {
 	@Override
 	protected SpringApplicationBuilder configure(
 			SpringApplicationBuilder application) {
-		logger.debug("SpringBootApplication.configure---------------configure-----------------");
 		return application.sources(getClass());
 	}
 

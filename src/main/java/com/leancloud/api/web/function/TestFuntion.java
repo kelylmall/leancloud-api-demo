@@ -9,4 +9,11 @@ public class TestFuntion {
 		return "TestFuntion!111111";
 	}
 
+	
+	@EngineFunction("jniHello")
+	public  static String jniHello() {
+		
+		return "TestFuntion!111111";
+	}
+
 }

@@ -1,9 +1,14 @@
 package com.leancloud.api.web.controller.user;
 
+import java.io.FileNotFoundException;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +20,7 @@ import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.leancloud.api.web.entity.Todo;
+import com.leancloud.api.web.function.jni.HelloWorld;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -25,6 +31,17 @@ public class TestController {
 	@RequestMapping(value = "/test")
 	@ResponseBody
 	public String test(@RequestHeader HttpHeaders headers,
+			@RequestParam(value = "key", required = false) String key,
+			@RequestBody(required = false) String requestBody,
+			HttpServletRequest request) {
+		String realPath = request.getSession().getServletContext().getRealPath("/");
+		new HelloWorld().hello();
+		return realPath;
+	}
+
+	@RequestMapping(value = "/testJni")
+	@ResponseBody
+	public String testJni(@RequestHeader HttpHeaders headers,
 			@RequestParam(value = "key", required = false) String key,
 			@RequestBody(required = false) String requestBody) {
 

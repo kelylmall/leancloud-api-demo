@@ -6,6 +6,7 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.http.protocol.HTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.InputStreamResource;
@@ -132,6 +133,7 @@ public class TestController {
 
 		AVFile avFile = AVFile.withObjectId(objectId);
 		byte[] data = avFile.getData();
+	
 		// // query String filePath = id + ".rmvb";
 		// FileSystemResource file = new FileSystemResource(filePath);
 		// HttpHeaders headers = new HttpHeaders();

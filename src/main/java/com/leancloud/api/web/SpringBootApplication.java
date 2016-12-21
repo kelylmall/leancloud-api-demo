@@ -71,7 +71,7 @@ public class SpringBootApplication extends SpringBootServletInitializer {
 		return application.sources(getClass());
 	}
 
-	public static void initLoadJniLib(ServletContext servletContext) {
+	public  void initLoadJniLib(ServletContext servletContext) {
 		logger.debug("SpringBootApplication.initLoadJniLib---start---");
 		// jni_lib库目录
 		String contextPath = servletContext.getRealPath("/");

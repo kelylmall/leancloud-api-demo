@@ -1,5 +1,6 @@
 package com.leancloud.api.web.controller.user;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,8 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +26,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.GetDataCallback;
+import com.avos.avoscloud.GetFileCallback;
+import com.avos.avoscloud.ProgressCallback;
 import com.leancloud.api.web.function.jni.HelloWorld;
 import com.leancloud.api.web.resp.BaseResp;
 import com.leancloud.api.web.resp.ClientStateCode;
@@ -54,8 +61,7 @@ public class TestController {
 		return testJni;
 	}
 
-	
-	//数据存储
+	// 数据存储
 	@RequestMapping(value = "/testSaveDb", produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public AVObject testSaveDb(@RequestHeader HttpHeaders headers,
@@ -69,7 +75,7 @@ public class TestController {
 		return todo;
 	}
 
-	// 从数据流构建文件
+	// 从数据流构建文件上传
 	@RequestMapping(value = "/uploadFile", produces = { MediaType.APPLICATION_JSON_VALUE }, method = RequestMethod.POST)
 	@ResponseBody
 	public BaseResp uploadFile(@RequestHeader HttpHeaders headers,
@@ -117,6 +123,30 @@ public class TestController {
 		BaseResp baseResp = new BaseResp(ClientStateCode.SUCCESS);
 		baseResp.setData(result);
 		return baseResp;
+	}
+
+	@RequestMapping(value = "/download/{objectId}", method = RequestMethod.GET)
+	public ResponseEntity<InputStreamResource> downloadFile(
+			@PathVariable("objectId") String objectId) throws IOException,
+			AVException {
+
+		AVFile avFile = AVFile.withObjectId(objectId);
+		byte[] data = avFile.getData();
+		// // query String filePath = id + ".rmvb";
+		// FileSystemResource file = new FileSystemResource(filePath);
+		// HttpHeaders headers = new HttpHeaders();
+		// headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+		// headers.add("Content-Disposition",
+		// String.format("attachment; filename=\"%s\"", file.getFilename()));
+		// headers.add("Pragma", "no-cache");
+		// headers.add("Expires", "0");
+		// return ResponseEntity
+		// .ok()
+		// .headers(headers)
+		// .contentLength(file.contentLength())
+		// .contentType(MediaType.parseMediaType("application/octet-stream"))
+		// .body(new InputStreamResource(file.getInputStream()));
+		return null;
 	}
 
 }

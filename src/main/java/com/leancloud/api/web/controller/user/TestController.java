@@ -54,6 +54,8 @@ public class TestController {
 		return testJni;
 	}
 
+	
+	//数据存储
 	@RequestMapping(value = "/testSaveDb", produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public AVObject testSaveDb(@RequestHeader HttpHeaders headers,

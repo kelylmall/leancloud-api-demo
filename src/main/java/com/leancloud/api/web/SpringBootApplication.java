@@ -38,8 +38,8 @@ public class SpringBootApplication extends SpringBootServletInitializer {
 		logger.debug("SpringBootApplication.run---start---");
 		initCloud();
 		initLocalLoadJniLib();
-//		SpringApplication application = new SpringApplication(SpringBootApplication.class);
-//		application.run();
+		SpringApplication application = new SpringApplication(SpringBootApplication.class);
+		application.run();
 	}
 
 	@Override

@@ -37,8 +37,9 @@ public class SpringBootApplication extends SpringBootServletInitializer {
 	public static void main(String[] args) throws Exception {
 		logger.debug("SpringBootApplication.run---start---");
 		initCloud();
-		SpringApplication application = new SpringApplication(SpringBootApplication.class);
-		application.run();
+		initLocalLoadJniLib();
+//		SpringApplication application = new SpringApplication(SpringBootApplication.class);
+//		application.run();
 	}
 
 	@Override
@@ -71,6 +72,36 @@ public class SpringBootApplication extends SpringBootServletInitializer {
 		return application.sources(getClass());
 	}
 
+	public  static void initLocalLoadJniLib() {
+		logger.debug("SpringBootApplication.initLocalLoadJniLib---start---");
+		String property = System.getProperty("user.dir");
+		String jni_lib_path=property+"/src/main/webapp/jni_lib";
+		// jni_lib库目录
+		System.setProperty("java.library.path",
+				System.getProperty("java.library.path") + ":" + jni_lib_path);
+		logger.info("SpringBootApplication.onStartup jni_lib_path:"
+				+ System.getProperty("java.library.path"));
+		try {
+			ClassLoader.class.getDeclaredField("sys_paths");
+			Field fieldSysPath = ClassLoader.class
+					.getDeclaredField("sys_paths");
+			fieldSysPath.setAccessible(true);
+			fieldSysPath.set(null, null);
+			System.loadLibrary("hello");// 加载
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		logger.debug("SpringBootApplication.initLocalLoadJniLib---end---");
+	}
+	
+	
+	
 	public  void initLoadJniLib(ServletContext servletContext) {
 		logger.debug("SpringBootApplication.initLoadJniLib---start---");
 		// jni_lib库目录

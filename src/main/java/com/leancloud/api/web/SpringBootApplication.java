@@ -26,7 +26,7 @@ import com.leancloud.api.web.function.TestFuntion;
 
 @SuppressWarnings("deprecation")
 @Configuration
-@ComponentScan(basePackages = "com.leancloud.api.web")
+@ComponentScan(basePackages = {"com.leancloud.api","com.leancloud.api.web"})
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class })
 @EnableConfigurationProperties({ LeanCloudAppConfigurer.class })
 public class SpringBootApplication extends SpringBootServletInitializer {

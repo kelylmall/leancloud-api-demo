@@ -16,9 +16,18 @@ public class GlobalExceptionHandler {
 	private static Logger logger = LoggerFactory
 			.getLogger(GlobalExceptionHandler.class);
 
+	// 统一处理不同异常
 	@ExceptionHandler(value = AVException.class)
 	@ResponseBody
 	public BaseResp exceptionHandle(AVException ex) {
+		logger.error("GlobalExceptionHandler.exceptionHandle:{}", ex);
+		BaseResp baseResp = new BaseResp(ClientStateCode.SYSTEM_ERR);
+		return baseResp;
+	}
+
+	@ExceptionHandler(value = Exception.class)
+	@ResponseBody
+	public BaseResp exceptionHandle(Exception ex) {
 		logger.error("GlobalExceptionHandler.exceptionHandle:{}", ex);
 		BaseResp baseResp = new BaseResp(ClientStateCode.SYSTEM_ERR);
 		return baseResp;

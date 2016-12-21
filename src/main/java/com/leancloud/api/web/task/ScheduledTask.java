@@ -19,7 +19,7 @@ public class ScheduledTask {
 
 	// cron = "*/5 * * * * * *"提供了一种通用的定时任务表达式，这里表示每隔5秒执行一次，更加详细的信息可以参考linux
 	// cron表达式
-	@Scheduled(cron = "* * */1 * * *")
+	@Scheduled(cron = "0 */1 *  * * *")
 	// 每秒执行执行一次
 	public void reportCurrentTimeCron() {
 		try {

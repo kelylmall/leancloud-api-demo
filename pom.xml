@@ -35,11 +35,15 @@
 	<dependencies>
 
 		<dependency>
-		    <groupId>commons-fileupload</groupId>
-		    <artifactId>commons-fileupload</artifactId>
-		    <version>${commons-fileupload.version}</version>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>${commons-fileupload.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.nutz</groupId>
+			<artifactId>nutz</artifactId>
+			<version>1.r.59</version>
+		</dependency>
 		<dependency>
 			<groupId>cn.leancloud</groupId>
 			<artifactId>java-sdk</artifactId>
@@ -156,39 +160,39 @@
 			<plugins>
 
 				<plugin>
-	<groupId>org.eclipse.jetty</groupId>
-	<artifactId>jetty-maven-plugin</artifactId>
-	<version>${jettyVersion}</version>
-	<configuration>
-		<webAppSourceDirectory>${project.basedir}/src/main/webapp</webAppSourceDirectory>
-		<scanIntervalSeconds>3</scanIntervalSeconds>
-		<stopKey>foo</stopKey>
-		<stopPort>9999</stopPort>
-		<httpConnector>
-			<port>${env.LEANCLOUD_APP_PORT}</port>
-		</httpConnector>
-	</configuration>
-	<executions>
-		<execution>
-			<id>start-jetty</id>
-			<phase>pre-integration-test</phase>
-			<goals>
-				<goal>run</goal>
-			</goals>
-			<configuration>
-				<scanIntervalSeconds>0</scanIntervalSeconds>
-				<daemon>true</daemon>
-			</configuration>
-		</execution>
-		<execution>
-			<id>stop-jetty</id>
-			<phase>post-integration-test</phase>
-			<goals>
-				<goal>stop</goal>
-			</goals>
-		</execution>
-	</executions>
-</plugin>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-maven-plugin</artifactId>
+					<version>${jettyVersion}</version>
+					<configuration>
+						<webAppSourceDirectory>${project.basedir}/src/main/webapp</webAppSourceDirectory>
+						<scanIntervalSeconds>3</scanIntervalSeconds>
+<!-- 						<stopKey>foo</stopKey> -->
+<!-- 						<stopPort>9999</stopPort> -->
+<!-- 						<httpConnector> -->
+<!-- 							<port>${env.LEANCLOUD_APP_PORT}</port> -->
+<!-- 						</httpConnector> -->
+					</configuration>
+					<executions>
+						<execution>
+							<id>start-jetty</id>
+							<phase>pre-integration-test</phase>
+							<goals>
+								<goal>run</goal>
+							</goals>
+							<configuration>
+								<scanIntervalSeconds>0</scanIntervalSeconds>
+<!-- 								<daemon>true</daemon> -->
+							</configuration>
+						</execution>
+						<execution>
+							<id>stop-jetty</id>
+							<phase>post-integration-test</phase>
+							<goals>
+								<goal>stop</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
 
 
 				<!-- compiler插件, 设定JDK版本 -->

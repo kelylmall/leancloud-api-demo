@@ -202,7 +202,7 @@ public class TestController {
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
 		conn.setConnectTimeout(30 * 1000);
-		InputStream inputStream = conn.getInputStream();// 通过输入流获取图片数据
+		InputStream inputStream = conn.getInputStream();
 		return inputStream;
 	}
 

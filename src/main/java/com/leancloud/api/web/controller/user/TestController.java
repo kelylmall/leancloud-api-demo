@@ -10,6 +10,7 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.InputStreamResource;
@@ -169,7 +170,10 @@ public class TestController {
 		String fileUrl = avFile.getUrl();
 		InputStream inputStream = null;
 		try {
-			inputStream = getInputStream(fileUrl);
+			inputStream = getInputStream(fileUrl);// 获取文件流
+			// TODO 解析文件数据
+			// String string = IOUtils.toString(inputStream);
+
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
 			headers.add("Content-Disposition",
@@ -194,6 +198,33 @@ public class TestController {
 									.parseMediaType("application/json;charset=UTF-8"))
 					.body(JSON.toJSONString(baseResp));
 		}
+	}
+
+	@RequestMapping(value = "/parseFile/{objectId}", method = RequestMethod.GET)
+	public BaseResp parseFile(@PathVariable("objectId") String objectId) {
+
+		AVFile avFile = null;
+		BaseResp baseResp = null;
+		try {
+			avFile = AVFile.withObjectId(objectId);
+		} catch (FileNotFoundException | AVException e1) {
+			e1.printStackTrace();
+			baseResp = new BaseResp(ClientStateCode.file_not_exists);
+		}
+		String fileUrl = avFile.getUrl();
+		InputStream inputStream = null;
+		try {
+			inputStream = getInputStream(fileUrl);// 获取文件流
+			// TODO 解析文件数据
+			
+			String string = IOUtils.toString(inputStream);
+			baseResp = new BaseResp(ClientStateCode.SUCCESS);
+			baseResp.setData(string);
+		} catch (IOException e) {
+			e.printStackTrace();
+			baseResp = new BaseResp(ClientStateCode.file_not_exists);
+		}
+		return baseResp;
 	}
 
 	private InputStream getInputStream(String fileUrl) throws IOException {

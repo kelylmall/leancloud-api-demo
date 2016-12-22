@@ -186,8 +186,14 @@ public class TestController {
 					.body(new InputStreamResource(inputStream));
 		} catch (IOException e) {
 			e.printStackTrace();
+			BaseResp baseResp = new BaseResp(ClientStateCode.file_not_exists);
+			return ResponseEntity
+					.ok()
+					.contentType(
+							MediaType
+									.parseMediaType("application/json;charset=UTF-8"))
+					.body(JSON.toJSONString(baseResp));
 		}
-		return null;
 	}
 
 	private InputStream getInputStream(String fileUrl) throws IOException {
